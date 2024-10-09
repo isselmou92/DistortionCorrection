@@ -18,19 +18,38 @@ MR_Volume_Array = sitk.GetArrayFromImage(MR_Volume)
 
 # Load corresponding B0 map
 B0_Map = sitk.ReadImage('b0_correction_analysis/Analysis_08_10_2024/mouse/B0_Map_Mouse.nii')
-B0_Map_Array = sitk.GetArrayFromImage(B0_Map)
 
-# Skip registration step and directly resample B0 map to match MR volume
+# Perform registration to align B0_Map with MR_Volume
+initial_transform = sitk.CenteredTransformInitializer(MR_Volume,
+                                                      B0_Map,
+                                                      sitk.Euler3DTransform(),
+                                                      sitk.CenteredTransformInitializerFilter.GEOMETRY)
 
-# Resample B0 Map to match MR Volume without registration
-B0_Map_Resampled = sitk.Resample(B0_Map, MR_Volume, sitk.Transform(), sitk.sitkLinear, 0.0, B0_Map.GetPixelID())
+registration_method = sitk.ImageRegistrationMethod()
+registration_method.SetMetricAsMattesMutualInformation(numberOfHistogramBins=50)
+registration_method.SetMetricSamplingStrategy(registration_method.RANDOM)
+registration_method.SetMetricSamplingPercentage(0.01)
+registration_method.SetInterpolator(sitk.sitkLinear)
+registration_method.SetOptimizerAsGradientDescent(learningRate=1.0, numberOfIterations=100,
+                                                  convergenceMinimumValue=1e-6, convergenceWindowSize=10)
+registration_method.SetOptimizerScalesFromPhysicalShift()
+
+registration_method.SetInitialTransform(initial_transform, inPlace=False)
+registration_method.SetShrinkFactorsPerLevel(shrinkFactors=[4, 2, 1])
+registration_method.SetSmoothingSigmasPerLevel(smoothingSigmas=[2, 1, 0])
+registration_method.SmoothingSigmasAreSpecifiedInPhysicalUnitsOn()
+
+final_transform = registration_method.Execute(sitk.Cast(MR_Volume, sitk.sitkFloat32),
+                                              sitk.Cast(B0_Map, sitk.sitkFloat32))
+
+# Resample B0 Map to align with MR Volume
+B0_Map_Resampled = sitk.Resample(B0_Map, MR_Volume, final_transform, sitk.sitkLinear, 0.0, B0_Map.GetPixelID())
 
 # Upsample the registered B0 map
 B0_Map_Resampled_Array = sitk.GetArrayFromImage(B0_Map_Resampled)
 MR_Volume_Array = sitk.GetArrayFromImage(MR_Volume)
 
 original_shape = B0_Map_Resampled_Array.shape
-# target_shape = (78, 90, 90)
 target_shape = (112, 128, 128)
 zoom_factors = (target_shape[0] / original_shape[0],
                 target_shape[1] / original_shape[1],
@@ -81,10 +100,8 @@ corrected_volume = resampler.Execute(MR_Volume_Upsampled)
 # Convert the corrected volume to a numpy array for further processing or visualization
 corrected_volume_array = sitk.GetArrayFromImage(corrected_volume)
 
-# Write to file
-sitk.WriteImage(corrected_volume,
-                'b0_correction_analysis/Analysis_08_10_2024/mouse/mouse_35_mr_b0_corrected.nii')
-
+# Save the corrected volume
+sitk.WriteImage(corrected_volume, 'b0_correction_analysis/Analysis_08_10_2024/mouse/mouse_35_mr_b0_corrected.nii')
 
 # Display the results
 plt.figure(figsize=(12, 6))
@@ -98,6 +115,7 @@ plt.subplot(1, 3, 3)
 plt.title("Corrected MR Slice")
 plt.imshow(corrected_volume_array[corrected_volume_array.shape[0] // 2], cmap='gray')
 plt.show()
+
 
 ## Apply phantom displacementfield on mouse volume
 
