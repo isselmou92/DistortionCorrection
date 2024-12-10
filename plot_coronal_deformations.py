@@ -54,36 +54,42 @@ ge_coronal_projection_shim2 = np.rot90(np.mean(ge_magnitudes_shim2, axis=1), 2).
 ge_coronal_projection_shim1_b0_corrected = np.rot90(np.mean(ge_magnitudes_shim1_b0_corrected, axis=1), 2).T
 ge_coronal_projection_shim2_b0_corrected = np.rot90(np.mean(ge_magnitudes_shim2_b0_corrected, axis=1), 2).T
 
-fig, axes = plt.subplots(1, 4, figsize=(14, 11), constrained_layout=True)
-# cmap = plt.cm.gist_rainbow
+fig, axes = plt.subplots(1, 4, figsize=(16, 11), constrained_layout=True)
 
-# Image for Shim 1 with specified color range
-im1 = axes[0].imshow(ge_coronal_projection_shim1, cmap=cmap, vmin=0, vmax=1.12)
+# Compute ranges dynamically for the two pairs of images
+vmin1 = min(ge_coronal_projection_shim1.min(), ge_coronal_projection_shim2.min())
+vmax1 = max(ge_coronal_projection_shim1.max(), ge_coronal_projection_shim2.max())
+
+vmin2 = min(ge_coronal_projection_shim1_b0_corrected.min(), ge_coronal_projection_shim2_b0_corrected.min())
+vmax2 = max(ge_coronal_projection_shim1_b0_corrected.max(), ge_coronal_projection_shim2_b0_corrected.max())
+
+# Plot Shim-1
+im1 = axes[0].imshow(ge_coronal_projection_shim1, cmap=cmap, vmin=vmin1, vmax=vmax1)
 axes[0].set_title('GRE Shim-1', fontsize=14)
-axes[0].axis('off')  # Disable axes
+axes[0].axis('off')
 
-# Image for Shim 2 with specified color range
-im2 = axes[1].imshow(ge_coronal_projection_shim2, cmap=cmap, vmin=0, vmax=1.12)
+# Plot Shim-2
+im2 = axes[1].imshow(ge_coronal_projection_shim2, cmap=cmap, vmin=vmin1, vmax=vmax1)
 axes[1].set_title('GRE Shim-2', fontsize=14)
-axes[1].axis('off')  # Disable axes
+axes[1].axis('off')
 
-# Image for Shim 1 with specified color range
-im3 = axes[2].imshow(ge_coronal_projection_shim1_b0_corrected, cmap=cmap, vmin=0, vmax=1.12)
+# Plot Shim-1 B0 Corrected
+im3 = axes[2].imshow(ge_coronal_projection_shim1_b0_corrected, cmap=cmap, vmin=vmin2, vmax=vmax2)
 axes[2].set_title('GRE Shim-1 B0 Corrected', fontsize=14)
-axes[2].axis('off')  # Disable axes
+axes[2].axis('off')
 
-# Image for Shim 2 with specified color range
-im4 = axes[3].imshow(ge_coronal_projection_shim2_b0_corrected, cmap=cmap, vmin=0, vmax=1.12)
+# Plot Shim-2 B0 Corrected
+im4 = axes[3].imshow(ge_coronal_projection_shim2_b0_corrected, cmap=cmap, vmin=vmin2, vmax=vmax2)
 axes[3].set_title('GRE Shim-2 B0 Corrected', fontsize=14)
-axes[3].axis('off')  # Disable axes
+axes[3].axis('off')
 
-# Colorbar for Shim 1
-cbar1 = fig.colorbar(im3, ax=axes[3], orientation='vertical', fraction=.1, pad=0.04)
-cbar1.set_label('Maximum Displacement Magnitude in mm', fontsize=14)
+# Add colorbar for the first two plots
+cbar1 = fig.colorbar(im1, ax=axes[:2], orientation='vertical', fraction=0.05, pad=0.04)
+cbar1.set_label('Displacement Magnitude (Shim 1 & 2)', fontsize=12)
 
-# Colorbar for Shim 2
-# cbar2 = fig.colorbar(im2, ax=axes[1], orientation='vertical', fraction=.1, pad=0.04)
-# cbar2.set_label('Average Displacement Magnitude in mm', fontsize=14)
+# Add colorbar for the last two plots
+cbar2 = fig.colorbar(im3, ax=axes[2:], orientation='vertical', fraction=0.05, pad=0.04)
+cbar2.set_label('Displacement Magnitude (B0 Corrected)', fontsize=12)
 
 plt.show()
 
