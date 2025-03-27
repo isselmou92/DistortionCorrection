@@ -1,4 +1,7 @@
 # B0 Correction and Phantom Displacement Field Application
+## Repository Description
+
+This repository provides Python scripts for correcting geometric distortions in ultra-high field (15.2T) MR images caused by magnetic field inhomogeneities (ΔB0) and gradient non-linearities (GNL). It implements a two-step distortion correction (2SDC) method—first correcting ΔB0 distortions using registered static field maps, and then applying a phantom-based displacement map to correct GNL-induced distortions. The method has been validated on phantom data and in-vivo mouse brain MR images, demonstrating superior accuracy over conventional correction techniques, thus enabling precise MR-guided radiation research at sub-millimetre resolution.
 
 This repository contains two Python scripts for:
 1. **B0 Correction** of MRI data (using a registered B0 map).
