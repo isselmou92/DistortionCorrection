@@ -24,7 +24,17 @@ Below you’ll find instructions on how to install dependencies, run the scripts
 
 ---
 
-## Repository Structure
+#Repository Structure
 
 A simple layout could be:
 
+
+#Dependencies
+## Dependencies
+- **Python 3.x**  
+- **numpy** (e.g., `>=1.21.0`)
+- **matplotlib** (e.g., `>=3.4.2`)
+- **SimpleITK** (e.g., `>=2.1.1`)
+- **scipy** (e.g., `>=1.7.1`)
+
+These dependencies are included in the `requirements.txt` file.
