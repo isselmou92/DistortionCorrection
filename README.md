@@ -18,8 +18,6 @@ Below you’ll find instructions on how to install dependencies, run the scripts
    1. [B0 Correction](#1-b0-correction)
    2. [Apply Phantom Displacement Field](#2-apply-phantom-displacement)
 5. [Citation](#citation)
-6. [License](#license)
-
 ---
 
 ## Repository Structure
