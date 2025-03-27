@@ -24,7 +24,7 @@ Below you’ll find instructions on how to install dependencies, run the scripts
 
 ---
 
-##Repository Structure
+## Repository Structure
 
 A simple layout could be:
 
@@ -38,12 +38,12 @@ A simple layout could be:
 
 These dependencies are included in the `requirements.txt` file.
 
-##Installation
+## Installation
 
 Clone this repository:
 
 ```console
-git clone https://github.com/YourUsername/B0_correction_project.git
+git clone https://github.com/isselmou92/DistortionCorrection.git
 cd B0_correction_project
 ```
 To innstall dependencies. You can use pip:
