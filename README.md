@@ -24,12 +24,11 @@ Below you’ll find instructions on how to install dependencies, run the scripts
 
 ---
 
-#Repository Structure
+##Repository Structure
 
 A simple layout could be:
 
 
-#Dependencies
 ## Dependencies
 - **Python 3.x**  
 - **numpy** (e.g., `>=1.21.0`)
@@ -39,23 +38,18 @@ A simple layout could be:
 
 These dependencies are included in the `requirements.txt` file.
 
-#Installation
+##Installation
 
-Clone this repository (adjust the URL to your repository’s address):
+Clone this repository:
 
+```console
 git clone https://github.com/YourUsername/B0_correction_project.git
 cd B0_correction_project
+```
+To innstall dependencies. You can use pip:
 
-Install dependencies. You can use pip:
-
+```console
 pip install -r requirements.txt
-
-Or use conda:
-
-conda create -n b0_env python=3.9
-conda activate b0_env
-pip install -r requirements.txt
-
-
+```
 Make sure you have a suitable C++ compiler if you’re on Windows (some libraries may need it).
 
