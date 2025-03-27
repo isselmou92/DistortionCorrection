@@ -17,10 +17,8 @@ Below you’ll find instructions on how to install dependencies, run the scripts
 4. [Usage](#usage)
    1. [B0 Correction](#1-b0-correction)
    2. [Apply Phantom Displacement Field](#2-apply-phantom-displacement)
-5. [Example Directory Layout](#example-directory-layout)
-6. [Outputs](#outputs)
-7. [Citation](#citation)
-8. [License](#license)
+5. [Citation](#citation)
+6. [License](#license)
 
 ---
 
@@ -121,4 +119,7 @@ Writes the final displaced volume to:
 ```console
 b0_correction_analysis/Analysis_08_10_2024/mouse/Mouse_B0_Corrected_with_Phantom_Displacement_Field_Volume_MR_resolution.nii
 ```
-
+## Citation
+```console
+Stocchiero et al.
+```
