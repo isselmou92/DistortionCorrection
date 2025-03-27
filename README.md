@@ -4,7 +4,7 @@
 This repository provides Python scripts for correcting geometric distortions in ultra-high field (15.2T) MR images caused by magnetic field inhomogeneities (ΔB0) and gradient non-linearities (GNL). It implements a two-step distortion correction (2SDC) method—first correcting ΔB0 distortions using registered static field maps, and then applying a phantom-based displacement map to correct GNL-induced distortions. The method has been validated on phantom data and in-vivo mouse brain MR images.
 This repository contains two Python scripts for:
 1. **B0 Correction** of MRI data (using a registered B0 map).
-2. **Phantom Displacement** application on the B0-corrected volume.
+2. **Phantom Displacement Field** application on the B0-corrected volume.
 
 Below you’ll find instructions on how to install dependencies, run the scripts, and understand the expected input and output data.
 
@@ -16,7 +16,7 @@ Below you’ll find instructions on how to install dependencies, run the scripts
 3. [Installation](#installation)
 4. [Usage](#usage)
    1. [B0 Correction](#1-b0-correction)
-   2. [Apply Phantom Displacement](#2-apply-phantom-displacement)
+   2. [Apply Phantom Displacement Field](#2-apply-phantom-displacement)
 5. [Example Directory Layout](#example-directory-layout)
 6. [Outputs](#outputs)
 7. [Citation](#citation)
@@ -38,3 +38,24 @@ A simple layout could be:
 - **scipy** (e.g., `>=1.7.1`)
 
 These dependencies are included in the `requirements.txt` file.
+
+#Installation
+
+Clone this repository (adjust the URL to your repository’s address):
+
+git clone https://github.com/YourUsername/B0_correction_project.git
+cd B0_correction_project
+
+Install dependencies. You can use pip:
+
+pip install -r requirements.txt
+
+Or use conda:
+
+conda create -n b0_env python=3.9
+conda activate b0_env
+pip install -r requirements.txt
+
+
+Make sure you have a suitable C++ compiler if you’re on Windows (some libraries may need it).
+
