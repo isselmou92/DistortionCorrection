@@ -64,5 +64,61 @@ pip install -r requirements.txt
 Make sure you have a suitable C++ compiler if you’re on Windows (some libraries may need it).
 
 ## Usage
+### 1. B0 Correction
+Run the b0_correction.py script. By default, it expects:
 
+mouse_35_MR.nii and
+
+B0_Map_Mouse.nii
+
+in the b0_correction_analysis/Analysis_08_10_2024/mouse/ folder.
+
+Example Command:
+
+```console
+python b0_correction.py
+```
+- Reads the input MRI volume and B0 map.
+
+- Registers the B0 map to the MRI volume using a Mattes Mutual Information metric.
+
+- Resamples and upsamples the B0 map and MRI volume.
+
+- Converts the B0 map values to a z-direction displacement field (in mm).
+
+- Applies the displacement field to the MRI volume (B0 correction).
+
+- Writes the corrected volume to:
+
+```console
+b0_correction_analysis/Analysis_08_10_2024/mouse/mouse_35_mr_b0_corrected.nii
+```
+
+Displays a figure with three subplots:
+
+- Original MR slice
+
+- Displacement field in mm
+
+- Corrected MR slice
+
+### 2. Apply Phantom Displacement Field
+Once the B0-corrected file (mouse_35_mr_b0_corrected.nii) is created, run:
+
+```console
+python phantom_displacement.py
+```
+- Reads the newly created B0-corrected MRI volume.
+
+- Reads the phantom displacement field (e.g., Cropped_Displacement_Field_Mouse_Dimensions.nii).
+
+- Resamples the phantom field to match the MRI volume dimensions.
+
+- Applies this displacement field to the B0-corrected MRI data.
+
+Writes the final displaced volume to:
+
+```console
+b0_correction_analysis/Analysis_08_10_2024/mouse/Mouse_B0_Corrected_with_Phantom_Displacement_Field_Volume_MR_resolution.nii
+```
 
