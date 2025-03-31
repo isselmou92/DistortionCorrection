@@ -63,9 +63,9 @@ Make sure you have a suitable C++ compiler if you’re on Windows (some librarie
 ### 1. B0 Correction
 Run the b0_correction.py script. By default, it expects:
 
-mouse_35_MR.nii and
+- mouse_35_MR.nii and
 
-B0_Map_Mouse.nii
+- B0_Map_Mouse.nii
 
 in the b0_correction_analysis/Analysis_08_10_2024/mouse/ folder.
 
