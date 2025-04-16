@@ -24,7 +24,7 @@ Below, you'll find instructions for installing dependencies, running the scripts
 3. [Installation](#installation)
 4. [Usage](#usage)
    1. [B0 Correction](#1-b0-correction)
-   2. [Apply Phantom Displacement Field](#2-apply-phantom-displacement)
+   2. [Apply Phantom Displacement Field](#2-phantom-displacement-field-for-gnl-correction)
 5. [Citation](#citation)
 ---
 
