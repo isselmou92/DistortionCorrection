@@ -13,7 +13,7 @@ Our 2SDC method has been specifically validated on preclinical in-vivo mouse bra
 
 ### Included Scripts
 The following two in-house developed Python scripts are included and need to be applied to your MR dataset to correct system-dependent geometric distortions, as described above: 
-- <mark>B0_correction.py</mark>
+- ```console B0_correction.py</mark> ```
 - <mark>phantom_displacement_GNL.py</mark>
 
 Below, you'll find instructions for installing dependencies, running the scripts, and understanding the required input and expected output data. 
