@@ -36,9 +36,9 @@ A layout could be:
 b0_correction_analysis/
 └── Analysis/
     └── data/
-        ├── MR Volume
-        ├── static field map
-        ├── Displacement Field with Diemensions of MR Volume.nii
+        ├──  MR Volume
+        ├──  static field map
+        ├──  Displacement Field with Diemensions of MR Volume.nii
         ├──  ΔB0-corrected MR volume.nii   # (created by B0_correction.py)
         └──  ΔB0+GNL corrected MR volume   # (created by Phantom_displacement_GNL.py)
 ```
