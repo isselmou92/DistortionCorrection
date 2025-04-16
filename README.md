@@ -98,7 +98,7 @@ Displays a figure with three subplots:
 - ΔB0-corrected MR image in slices
 
 ### 2. Phantom Displacement Field for GNL correction
-Once the ΔB0-corrected MR image is created, run the second script for GNL correction: ```console phantom_displacement_GNL.py ```
+Once the ΔB0-corrected MR image is created, run the second script for GNL correction ```console phantom_displacement_GNL.py ```
 
 By default, it expects two Nifti MR images, as described in the following example: 
 - ΔB0-corrected MR volume intended to be corrected for GNL.
