@@ -34,13 +34,13 @@ A layout could be:
 
 ```console
 b0_correction_analysis/
-└── Analysis_08_10_2024/
-    └── mouse/
+└── Analysis/
+    └── data/
         ├── MR Volume
         ├── static field map
-        ├── Cropped_Displacement_Field_Mouse_Dimensions.nii
-        ├── mouse_35_mr_b0_corrected.nii                                # (created by b0_correction.py)
-        └── Mouse_B0_Corrected_with_Phantom_Displacement_Field_Volume_MR_resolution.nii   # (created by phantom_displacement.py)
+        ├── Displacement Field with Diemensions of MR Volume.nii
+        ├──  ΔB0-corrected MR volume.nii                                # (created by B0_correction.py)
+        └──  ΔB0+GNL corrected MR volume   # (created by Phantom_displacement_GNL.py)
 ```
 
 ## Dependencies
