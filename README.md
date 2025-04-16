@@ -1,14 +1,22 @@
 # B0 Correction and Phantom Displacement Field Application
 ## Repository Description
 
-This repository provides Python scripts for correcting geometric distortions in ultra-high field (15.2T) MR images caused by magnetic field inhomogeneities (ΔB0) and gradient non-linearities (GNL). It implements a two-step distortion correction (2SDC) method—first correcting ΔB0 distortions using registered static field maps, and then applying a phantom-based displacement map to correct GNL-induced distortions. The method has been validated on phantom data and in-vivo mouse brain MR images.
-This repository contains two Python scripts for:
-1. **B0 Correction** of MRI data (using a registered B0 map).
-2. **Phantom Displacement Field** application on the B0-corrected volume.
+Ultra-high field (UHF) magnetic resonance (MR) systems are advancing in clinical and especially preclinical imaging research offering the potential to enhance radiation research. However, system-dependent factors, such as magnetic field inhomogeneities (ΔB0) and gradient non-linearities (GNL), induce geometric distortions compromising the sub-millimetre accuracy required for radiation research. 
 
-Below you’ll find instructions on how to install dependencies, run the scripts, and understand the expected input and output data.
+The geometric distortion corrections are performed using the **two-step distortion correction (2SDC)** method, which separately addresses ΔB0- and GNL-related displacements in two consecutive steps.
 
----
+- In the first step, ΔB0 displacements are independently corrected via the Python script <mark>B0_correction.py</mark> using a pre-acquired static field map, resulting in an ΔB0-corrected MR image.
+
+- In the second step, a phantom-driven displacement map containing the GNL-induced displacements, which can be obtained with non-rigid registration, is applied to the ΔB0-corrected MR image via a second custom Python script <mark>phantom_displacement_GNL.py</mark> to correct specifically for GNL. This application is possible by assuming that the GNL distortion is sequence-independent, remaining constant across scans and subjects.
+
+Our 2SDC method has been specifically validated on preclinical in-vivo mouse brain MR images at 15.2T (Bruker BioSpin, Germany).
+
+### Included Scripts
+The following two in-house developed Python scripts are included and need to be applied to your MR dataset to correct system-dependent geometric distortions, as described above: 
+- <mark>B0_correction.py</mark>
+- <mark>phantom_displacement_GNL.py</mark>
+
+Below, you'll find instructions for installing dependencies, running the scripts, and understanding the required input and expected output data. 
 
 ## Table of Contents
 1. [Repository Structure](#repository-structure)
@@ -61,62 +69,54 @@ Make sure you have a suitable C++ compiler if you’re on Windows (some librarie
 
 ## Usage
 ### 1. B0 Correction
-Run the b0_correction.py script. By default, it expects:
+Run the <mark>B0_correction.py</mark> script. By default, it expects two Nifti MR images, as described in the following example: 
+- MR volume intended to be corrected
+  
+- Static field map of the same subject 
 
-- mouse_35_MR.nii and
+#### b0_correction script’s workflow: 
 
-- B0_Map_Mouse.nii
+- Reads the input MR volume and static field map.
+  
+- Registers the static field map to the MR volume using a Mattes Mutual Information metric. 
 
-in the b0_correction_analysis/Analysis_08_10_2024/mouse/ folder.
+- Resamples and upsamples the static field map and MR volume. 
 
-Example Command:
+- Converts the static field map voxel values in frequencies (Hz) to spatial displacement values in millimetres (mm), according to the formula d=ΔB0/G, where ΔB0 corresponds to the static field inhomogeneity present in each voxel of the static field map and G is the gradient strength along the frequency encoding direction. A ΔB0-spatial field map is generated.
+The script set the z-axis as the frequency encoding direction. However, the user needs to reset the frequency direction and the G parameter, according to their image acquisition. 
 
-```console
-python b0_correction.py
-```
-- Reads the input MRI volume and B0 map.
+- Applies the ΔB0-spatial field map in mm to the MR volume, resulting in a ΔB0-corrected MR image. 
 
-- Registers the B0 map to the MRI volume using a Mattes Mutual Information metric.
-
-- Resamples and upsamples the B0 map and MRI volume.
-
-- Converts the B0 map values to a z-direction displacement field (in mm).
-
-- Applies the displacement field to the MRI volume (B0 correction).
-
-- Writes the corrected volume to:
-
-```console
-b0_correction_analysis/Analysis_08_10_2024/mouse/mouse_35_mr_b0_corrected.nii
-```
+- Writes the ΔB0-corrected MR volume to a Nifti file. 
 
 Displays a figure with three subplots:
 
-- Original MR slice
+- Original MR volume in slices 
 
-- Displacement field in mm
+- ΔB0-spatial field map in mm 
 
-- Corrected MR slice
+- ΔB0-corrected MR image in slices
 
-### 2. Apply Phantom Displacement Field
-Once the B0-corrected file (mouse_35_mr_b0_corrected.nii) is created, run:
+### 2. Phantom Displacement Field for GNL correction
+Once the ΔB0-corrected MR image is created, run the second script for GNL correction: <mark>phantom_displacement_GNL.py</mark>
 
-```console
-python phantom_displacement.py
-```
-- Reads the newly created B0-corrected MRI volume.
+By default, it expects two Nifti MR images, as described in the following example: 
+- ΔB0-corrected MR volume intended to be corrected for GNL.
 
-- Reads the phantom displacement field (e.g., Cropped_Displacement_Field_Mouse_Dimensions.nii).
+- a displacement map of a phantom, obtained after non-rigid registration with a CT image of the same object, which includes GNL-induced displacements in mm per each voxel.
 
-- Resamples the phantom field to match the MRI volume dimensions.
+#### phantom_displacement_GNL script’s workflow: 
 
-- Applies this displacement field to the B0-corrected MRI data.
 
-Writes the final displaced volume to:
+- Reads the newly created ΔB0-corrected MR volume from the previous script.
 
-```console
-b0_correction_analysis/Analysis_08_10_2024/mouse/Mouse_B0_Corrected_with_Phantom_Displacement_Field_Volume_MR_resolution.nii
-```
+- Reads the phantom displacement field.
+  
+- Resamples the phantom field to match the ΔB0-corrected MR volume dimensions.
+
+- Applies this phantom displacement field to the ΔB0-corrected MR image by shifting the voxels in each spatial direction (x,y,z) according to the displacements indicated in the phantom displacement map.
+
+- Writes the ΔB0+GNL corrected MR volume to a Nifti file.
 ## Citation
 ```console
 Stocchiero et al.
