@@ -1,4 +1,4 @@
-# Open-source pipeline for system-dependent geometric distortion correction in UHF-MR images 
+# Pipeline for system-dependent geometric distortion correction in UHF-MR images 
 ## Repository Description
 
 Ultra-high field (UHF) magnetic resonance (MR) systems are advancing in clinical and especially preclinical imaging research offering the potential to enhance radiation research. However, system-dependent factors, such as magnetic field inhomogeneities (ΔB0) and gradient non-linearities (GNL), induce geometric distortions compromising the sub-millimetre accuracy required for radiation research. 
