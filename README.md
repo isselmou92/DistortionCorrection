@@ -5,7 +5,7 @@ Ultra-high field (UHF) magnetic resonance (MR) systems are advancing in clinical
 
 The geometric distortion corrections are performed using the **two-step distortion correction (2SDC)** method, which separately addresses ΔB0- and GNL-related displacements in two consecutive steps.
 
-- In the first step, ΔB0 displacements are independently corrected via the Python script ```console B0_correction.py``` using a pre-acquired static field map, resulting in an ΔB0-corrected MR image.
+- In the first step, ΔB0 displacements affecting only the frequency encoding direction  are independently corrected via the Python script ```console B0_correction.py``` using a pre-acquired static field map, resulting in an ΔB0-corrected MR image.
 
 - In the second step, a phantom-driven displacement map containing the GNL-induced displacements, which can be obtained with non-rigid registration, is applied to the ΔB0-corrected MR image via a second custom Python script ```console phantom_displacement_GNL.py``` to correct specifically for GNL. This application is possible by assuming that the GNL distortion is sequence-independent, remaining constant across scans and subjects.
 
@@ -83,7 +83,9 @@ Run the ```console B0_correction.py ```script. By default, it expects two Nifti 
 - Resamples and upsamples the static field map and MR volume. 
 
 - Converts the static field map voxel values in frequencies (Hz) to spatial displacement values in millimetres (mm), according to the formula d=ΔB0/G, where ΔB0 corresponds to the static field inhomogeneity present in each voxel of the static field map and G is the gradient strength along the frequency encoding direction. A ΔB0-spatial field map is generated.
-The script set the z-axis as the frequency encoding direction. However, the user needs to reset the frequency direction and the G parameter, according to their image acquisition. 
+
+
+The script sets the z-axis as the frequency encoding direction. However, the user needs to reset the frequency direction and the G parameter, according to their image acquisition. 
 
 - Applies the ΔB0-spatial field map in mm to the MR volume, resulting in a ΔB0-corrected MR image. 
 
@@ -103,7 +105,7 @@ Once the ΔB0-corrected MR image is created, run the second script for GNL corre
 By default, it expects two Nifti MR images, as described in the following example: 
 - ΔB0-corrected MR volume intended to be corrected for GNL.
 
-- a displacement map of a phantom, obtained after non-rigid registration with a CT image of the same object, which includes GNL-induced displacements in mm per each voxel.
+- A displacement map of a phantom, obtained after non-rigid registration with a CT image of the same object, which includes GNL-induced displacements in mm per each voxel.
 
 #### phantom_displacement_GNL script’s workflow: 
 
