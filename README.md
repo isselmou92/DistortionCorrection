@@ -5,16 +5,16 @@ Ultra-high field (UHF) magnetic resonance (MR) systems are advancing in clinical
 
 The geometric distortion corrections are performed using the **two-step distortion correction (2SDC)** method, which separately addresses ΔB0- and GNL-related displacements in two consecutive steps.
 
-- In the first step, ΔB0 displacements affecting only the frequency encoding direction  are independently corrected via the Python script [`B0_Correction.py`](src/B0_Correction.py) using a pre-acquired static field map, resulting in an ΔB0-corrected MR image.
+- In the first step, ΔB0 displacements affecting only the frequency encoding direction  are independently corrected via the Python script [`B0_Correction.py`](src/B0_correction.py) using a pre-acquired static field map, resulting in an ΔB0-corrected MR image.
 
-- In the second step, a phantom-driven displacement map containing the GNL-induced displacements, which can be obtained with non-rigid registration, is applied to the ΔB0-corrected MR image via a second custom Python script ```Phantom_displacement_GNL.py``` to correct specifically for GNL. This application is possible by assuming that the GNL distortion is sequence-independent, remaining constant across scans and subjects.
+- In the second step, a phantom-driven displacement map containing the GNL-induced displacements, which can be obtained with non-rigid registration, is applied to the ΔB0-corrected MR image via a second custom Python script [`Phantom_displacement_GNL.py`](src/Phantom_displacement_GNL.py) to correct specifically for GNL. This application is possible by assuming that the GNL distortion is sequence-independent, remaining constant across scans and subjects.
 
 Our 2SDC method has been specifically validated on preclinical in-vivo mouse brain MR images at 15.2T (Bruker BioSpin, Germany).
 
 ### Included Scripts
 The following two in-house developed Python scripts are included and need to be applied to your MR dataset to correct system-dependent geometric distortions, as described above: 
-- [`B0_Correction.py`](src/B0_Correction.py)
-- ```Phantom_displacement_GNL.py```
+- [`B0_Correction.py`](src/B0_correction.py)
+- [`Phantom_displacement_GNL.py`](src/Phantom_displacement_GNL.py)
 
 Below, you'll find instructions for installing dependencies, running the scripts, and understanding the required input and expected output data. 
 
@@ -69,7 +69,7 @@ Make sure you have a suitable C++ compiler if you’re on Windows (some librarie
 
 ## Usage
 ### 1. B0 Correction
-Run the [`B0_Correction.py`](src/B0_Correction.py) script. By default, it expects two Nifti MR images, as described in the following example: 
+Run the [`B0_Correction.py`](src/B0_correction.py) script. By default, it expects two Nifti MR images, as described in the following example: 
 - MR volume intended to be corrected
   
 - Static field map of the same subject 
@@ -100,7 +100,7 @@ Displays a figure with three subplots:
 - ΔB0-corrected MR image in slices
 
 ### 2. Phantom Displacement Field for GNL correction
-Once the ΔB0-corrected MR image is created, run the second script for GNL correction ```Phantom_displacement_GNL.py```
+Once the ΔB0-corrected MR image is created, run the second script for GNL correction [`Phantom_displacement_GNL.py`](src/Phantom_displacement_GNL.py)
 
 By default, it expects two Nifti MR images, as described in the following example: 
 - ΔB0-corrected MR volume intended to be corrected for GNL.
