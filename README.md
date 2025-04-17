@@ -69,7 +69,7 @@ Make sure you have a suitable C++ compiler if you’re on Windows (some librarie
 
 ## Usage
 ### 1. B0 Correction
-Run the ```console B0_correction.py ```script. By default, it expects two Nifti MR images, as described in the following example: 
+Run the ```console B0_correction.py```script. By default, it expects two Nifti MR images, as described in the following example: 
 - MR volume intended to be corrected
   
 - Static field map of the same subject 
