@@ -13,8 +13,8 @@ Our 2SDC method has been specifically validated on preclinical in-vivo mouse bra
 
 ### Included Scripts
 The following two in-house developed Python scripts are included and need to be applied to your MR dataset to correct system-dependent geometric distortions, as described above: 
-- ```console B0_correction.py ```
-- ```console phantom_displacement_GNL.py ```
+- ```console B0_correction.py```
+- ```console phantom_displacement_GNL.py```
 
 Below, you'll find instructions for installing dependencies, running the scripts, and understanding the required input and expected output data. 
 
@@ -100,7 +100,7 @@ Displays a figure with three subplots:
 - ΔB0-corrected MR image in slices
 
 ### 2. Phantom Displacement Field for GNL correction
-Once the ΔB0-corrected MR image is created, run the second script for GNL correction ``` phantom_displacement_GNL.py ```
+Once the ΔB0-corrected MR image is created, run the second script for GNL correction ```phantom_displacement_GNL.py```
 
 By default, it expects two Nifti MR images, as described in the following example: 
 - ΔB0-corrected MR volume intended to be corrected for GNL.
