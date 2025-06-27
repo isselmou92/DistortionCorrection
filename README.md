@@ -121,5 +121,5 @@ By default, it expects two Nifti MR images, as described in the following exampl
 - Writes the ΔB0+GNL corrected MR volume to a Nifti file.
 ## Citation
 ```console
-S. Stocchiero, I. Abdarahmane, E. Poblador Rodriguez, V. Froehlich, M. Zeilinger, and D. Georg, “Assessment and mitigiation of geometric distortions in MR images at 15.2T for preclinical radiation research,” Medical Physics, 2025, doi: 10.1002/mp.17963.
+Stocchiero S, Abdarahmane I, Rodríguez EP, Fröhlich V, Zeilinger M, Georg D. Assessment and mitigation of geometric distortions in MR images at 15.2T for preclinical radiation research. Med Phys. 2025;e17963. https://doi.org/10.1002/mp.17963
 ```
